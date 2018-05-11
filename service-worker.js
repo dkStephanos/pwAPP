@@ -41,6 +41,7 @@ self.addEventListener('activate', function(e) {
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
   var dataUrl = 'https://query.yahooapis.com/v1/public/yql';
+  if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') return;
   if (e.request.url.indexOf(dataUrl) > -1) {
     /*
      * When the request URL contains dataUrl, the app is asking for fresh
